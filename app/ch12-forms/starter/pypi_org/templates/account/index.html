@@ -4,8 +4,12 @@
 {% block main_content %}
     <h1>My account</h1>
 
-    <div>
-        These are your account details
+    <div class="content">
+        Welcome to your account {{ user.name }}
+    <p>{{ user.email }}</p>
+    <p>{{ user.hashed_password }}</p>
+    <p>{{ user.profile_image_url }}</p>
+    <p>{{ user.last_login }}</p>
     </div>
 {% endblock %}
 
