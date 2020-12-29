@@ -1,5 +1,6 @@
 import flask
 
+from infrastructure import request_dict
 from pypi_org.infrastructure.view_modifiers import response
 from services import user_service
 import pypi_org.infrastructure.cookie_auth as cookie_auth
@@ -32,7 +33,7 @@ def index():
 @blueprint.route('/account/register', methods=['GET'])
 @response(template_file='account/register.html')
 def register_get():
-    return {'user_id': cookie_auth.get_user_id_via_auth_cookie(flask.request),}
+    return {'user_id': cookie_auth.get_user_id_via_auth_cookie(flask.request), }
 
 
 @blueprint.route('/account/register', methods=['POST'])
@@ -74,16 +75,16 @@ def register_post():
 @blueprint.route('/account/login', methods=['GET'])
 @response(template_file='account/login.html')
 def login_get():
-    return {'user_id': cookie_auth.get_user_id_via_auth_cookie(flask.request),}
+    return {'user_id': cookie_auth.get_user_id_via_auth_cookie(flask.request), }
 
 
 @blueprint.route('/account/login', methods=['POST'])
 @response(template_file='account/login.html')
 def login_post():
-    r = flask.request
+    data = request_dict.create()
 
-    email = r.form.get('email', '').lower().strip()
-    password = r.form.get('password', '').strip()
+    email = data.email.lower().strip()
+    password = data.password.strip()
 
     if not email or not password:
         return {
