@@ -28,7 +28,7 @@ def create_user(name: str, email: str, password: str) -> Optional[User]:
     session.add(user)
     session.commit()
 
-    session.close()
+    # session.close()
 
     return user
 
